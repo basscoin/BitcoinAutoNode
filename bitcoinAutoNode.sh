@@ -16,13 +16,13 @@ apt-get install software-properties-common python-software-properties -y
 echo "########### Creating Swap"
 dd if=/dev/zero of=/swapfile bs=1M count=1024 ; mkswap /swapfile ; swapon /swapfile
 echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
-echo "########### Adding ppa:bitcoin/bitcoin and installing bitcoind"
-add-apt-repository -y ppa:bitcoin/bitcoin
+echo "########### Adding ppa:cwayne18/doge and installing dogecoind"
+add-apt-repository -y ppa:cwayne18/doge
 apt-get update -y
-mkdir ~/.bitcoin/
-apt-get install bitcoind -y
+mkdir ~/.dogecoin/
+apt-get install dogecoind -y
 echo "########### Creating config"
-config=".bitcoin/bitcoin.conf"
+config=".dogecoin/dogecoin.conf"
 touch $config
 echo "server=1" > $config
 echo "daemon=1" >> $config
@@ -33,7 +33,7 @@ echo "rpcuser=$randUser" >> $config
 echo "rpcpassword=$randPass" >> $config
 echo "########### Setting up autostart (cron)"
 crontab -l > tempcron
-echo "@reboot bitcoind -daemon" >> tempcron
+echo "@reboot dogecoind -daemon" >> tempcron
 crontab tempcron
 rm tempcron
 reboot
